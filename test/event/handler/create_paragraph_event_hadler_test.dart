@@ -16,6 +16,10 @@ const String HAPPEN_AT = '1234';
 void main() {
   CreateParagraphEventHandler eventHandler = CreateParagraphEventHandler();
 
+  test('Обрабатывает соответствующее событие', () {
+    expect(eventHandler.type, EventType.CREATE_PARAGRAPH);
+  });
+
   test('''Если параграф X вставляется в заметку N, и N["head"] = null, 
   то N["head"] = X["happenAt"]''', () {
     // GIVEN

@@ -4,9 +4,14 @@ import 'package:notez/crdt/event/handler/update_note_event_handler.dart';
 import 'package:notez/crdt/state.dart';
 
 void main() {
+  UpdateNoteEventHandler eventHandler = UpdateNoteEventHandler();
+
+  test('Обрабатывает соответствующее событие', () {
+    expect(eventHandler.type, EventType.UPDATE_NOTE);
+  });
+
   test('Должен перезаписывать значения в заметке на новые', () {
     // GIVEN
-    UpdateNoteEventHandler eventHandler = UpdateNoteEventHandler();
     State state = State();
     Map<String, dynamic> note = {'id': '5678', 'color': 'black', 'title': 'Old note'};
     state.put('5678', note);

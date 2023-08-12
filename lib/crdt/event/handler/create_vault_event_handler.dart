@@ -5,7 +5,13 @@ import 'package:notez/crdt/state.dart';
 class CreateVaultEventHandler extends EventHandler {
   @override
   void handle(Event event, State state) {
-    // TODO: implement handle
+    Map<String, dynamic> payload = event.payload;
+    Map<String, dynamic> vault = {
+      'id': event.happenAt,
+      'name': payload['name'],
+      'deleted': false,
+    };
+    state.put(event.happenAt, vault);
   }
 
   @override

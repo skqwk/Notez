@@ -13,6 +13,10 @@ const String HEAD = 'head';
 void main() {
   RemoveParagraphEventHandler eventHandler = RemoveParagraphEventHandler();
 
+  test('Обрабатывает соответствующее событие', () {
+    expect(eventHandler.type, EventType.REMOVE_PARAGRAPH);
+  });
+
   test(
       'Должен удалять параграф, изменяя его содержимое в null и обновлять deleteKey',
       () {

@@ -4,11 +4,16 @@ import 'package:notez/crdt/event/handler/update_paragraph_event_handler.dart';
 import 'package:notez/crdt/state.dart';
 
 void main() {
+  UpdateParagraphEventHandler eventHandler = UpdateParagraphEventHandler();
+
+  test('Обрабатывает соответствующее событие', () {
+    expect(eventHandler.type, EventType.UPDATE_PARAGRAPH);
+  });
+
   test(
       'Должен обновлять содержимое параграфа N, если N["deleteKey"] < happenAt',
       () {
     // GIVEN
-    UpdateParagraphEventHandler eventHandler = UpdateParagraphEventHandler();
 
     Map<String, dynamic> note = {
       'id': '1234',
@@ -43,8 +48,6 @@ void main() {
   test('''Не должен обновлять содержимое параграфа N, 
       если параграф уже был удален (N["content"] == null)''', () {
     // GIVEN
-    UpdateParagraphEventHandler eventHandler = UpdateParagraphEventHandler();
-
     Map<String, dynamic> note = {
       'id': '1234',
       'paragraphs': {
@@ -78,8 +81,6 @@ void main() {
   test('''Не должен обновлять содержимое параграфа N, 
       если событие обновления запоздало (event.happenAt > N["updateKey"])''', () {
     // GIVEN
-    UpdateParagraphEventHandler eventHandler = UpdateParagraphEventHandler();
-
     Map<String, dynamic> note = {
       'id': '1234',
       'paragraphs': {

@@ -4,9 +4,14 @@ import 'package:notez/crdt/event/handler/remove_note_event_handler.dart';
 import 'package:notez/crdt/state.dart';
 
 void main() {
+  RemoveNoteEventHandler eventHandler = RemoveNoteEventHandler();
+
+  test('Обрабатывает соответствующее событие', () {
+    expect(eventHandler.type, EventType.REMOVE_NOTE);
+  });
+
   test('Должен помечать заметку deleted = true', () {
     // GIVEN
-    RemoveNoteEventHandler eventHandler = RemoveNoteEventHandler();
     State state = State();
     final note = {'id': '4567', 'deleted': false};
     state.put('4567', note);
