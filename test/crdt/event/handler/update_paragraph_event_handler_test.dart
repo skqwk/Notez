@@ -14,7 +14,6 @@ void main() {
       'Должен обновлять содержимое параграфа N, если N["deleteKey"] < happenAt',
       () {
     // GIVEN
-
     Map<String, dynamic> note = {
       'id': '1234',
       'paragraphs': {
@@ -23,10 +22,11 @@ void main() {
     };
 
     State state = State();
-    state.put('1234', note);
+    state.put('111', {'notes': {'1234': note}});
 
     Map<String, dynamic> payload = {
       'noteId': '1234',
+      'vaultId': '111',
       'updateKey': '444',
       'content': 'Some new text',
     };
@@ -41,7 +41,7 @@ void main() {
       '444': {'content': 'Some new text', 'deleteKey': '999'}
     };
 
-    Map<String, dynamic> actualNote = state.get('1234');
+    Map<String, dynamic> actualNote = state.get('111/notes/1234');
     expect(actualNote['paragraphs'], expectedParagraphs);
   });
 
@@ -56,10 +56,11 @@ void main() {
     };
 
     State state = State();
-    state.put('1234', note);
+    state.put('111', {'notes': {'1234': note}});
 
     Map<String, dynamic> payload = {
       'noteId': '1234',
+      'vaultId': '111',
       'updateKey': '444',
       'content': 'Some new text',
     };
@@ -74,7 +75,7 @@ void main() {
       '444': {'content': null, 'deleteKey': '777'}
     };
 
-    Map<String, dynamic> actualNote = state.get('1234');
+    Map<String, dynamic> actualNote = state.get('111/notes/1234');
     expect(actualNote['paragraphs'], expectedParagraphs);
   });
 
@@ -89,10 +90,11 @@ void main() {
     };
 
     State state = State();
-    state.put('1234', note);
+    state.put('111', {'notes': {'1234': note}});
 
     Map<String, dynamic> payload = {
       'noteId': '1234',
+      'vaultId': '111',
       'updateKey': '444',
       'content': 'Some new text',
     };
@@ -107,7 +109,7 @@ void main() {
       '444': {'content': 'Some updated text', 'deleteKey': '777'}
     };
 
-    Map<String, dynamic> actualNote = state.get('1234');
+    Map<String, dynamic> actualNote = state.get('111/notes/1234');
     expect(actualNote['paragraphs'], expectedParagraphs);
   });
 }

@@ -26,13 +26,17 @@ void main() {
     Map<String, dynamic> note = {'id': NOTE_ID, PARAGRAPHS: {}};
 
     State state = State();
-    state.put(NOTE_ID, note);
+    state.put('111', {
+      'notes': {NOTE_ID: note}
+    });
 
     Map<String, dynamic> payload = {
       CONTENT: 'Some text',
       INSERT_KEY: null,
-      'noteId': NOTE_ID
+      'noteId': NOTE_ID,
+      'vaultId': '111'
     };
+
     Event event = Event(EventType.CREATE_PARAGRAPH, HAPPEN_AT, payload);
 
     // WHEN
@@ -48,7 +52,7 @@ void main() {
       }
     };
 
-    Map<String, dynamic> actualNote = state.get(NOTE_ID);
+    Map<String, dynamic> actualNote = state.get('111/notes/$NOTE_ID');
     expect(actualNote[HEAD], HAPPEN_AT);
     expect(actualNote[PARAGRAPHS], expectedParagraphs);
   });
@@ -72,12 +76,15 @@ void main() {
     };
 
     State state = State();
-    state.put(NOTE_ID, note);
+    state.put('111', {
+      'notes': {NOTE_ID: note}
+    });
 
     Map<String, dynamic> payload = {
       CONTENT: 'Some text',
       INSERT_KEY: null,
-      'noteId': NOTE_ID
+      'noteId': NOTE_ID,
+      'vaultId': '111'
     };
     Event event = Event(EventType.CREATE_PARAGRAPH, '888', payload);
 
@@ -100,7 +107,7 @@ void main() {
       }
     };
 
-    Map<String, dynamic> actualNote = state.get(NOTE_ID);
+    Map<String, dynamic> actualNote = state.get('111/notes/$NOTE_ID');
     expect(actualNote[PARAGRAPHS], expectedParagraphs);
     expect(actualNote[HEAD], '888');
   });
@@ -124,12 +131,15 @@ void main() {
     };
 
     State state = State();
-    state.put(NOTE_ID, note);
+    state.put('111', {
+      'notes': {NOTE_ID: note}
+    });
 
     Map<String, dynamic> payload = {
       CONTENT: 'Some text',
       INSERT_KEY: null,
-      'noteId': NOTE_ID
+      'noteId': NOTE_ID,
+      'vaultId': '111'
     };
     Event event = Event(EventType.CREATE_PARAGRAPH, '888', payload);
 
@@ -152,7 +162,7 @@ void main() {
       }
     };
 
-    Map<String, dynamic> actualNote = state.get(NOTE_ID);
+    Map<String, dynamic> actualNote = state.get('111/notes/$NOTE_ID');
     expect(actualNote[PARAGRAPHS], expectedParagraphs);
     expect(actualNote[HEAD], '999');
   });
@@ -171,12 +181,15 @@ void main() {
     Map<String, dynamic> note = {'id': NOTE_ID, PARAGRAPHS: paragraphs};
 
     State state = State();
-    state.put(NOTE_ID, note);
+    state.put('111', {
+      'notes': {NOTE_ID: note}
+    });
 
     Map<String, dynamic> payload = {
       CONTENT: 'Some text',
       INSERT_KEY: '777',
-      'noteId': NOTE_ID
+      'noteId': NOTE_ID,
+      'vaultId': '111'
     };
     Event event = Event(EventType.CREATE_PARAGRAPH, HAPPEN_AT, payload);
 
@@ -199,7 +212,7 @@ void main() {
       }
     };
 
-    Map<String, dynamic> actualNote = state.get(NOTE_ID);
+    Map<String, dynamic> actualNote = state.get('111/notes/$NOTE_ID');
     expect(actualNote[PARAGRAPHS], expectedParagraphs);
   });
 
@@ -225,12 +238,15 @@ void main() {
     Map<String, dynamic> note = {'id': NOTE_ID, PARAGRAPHS: paragraphs};
 
     State state = State();
-    state.put(NOTE_ID, note);
+    state.put('111', {
+      'notes': {NOTE_ID: note}
+    });
 
     Map<String, dynamic> payload = {
       CONTENT: 'Some text',
       INSERT_KEY: '777',
-      'noteId': NOTE_ID
+      'noteId': NOTE_ID,
+      'vaultId': '111'
     };
     Event event = Event(EventType.CREATE_PARAGRAPH, '888', payload);
 
@@ -259,7 +275,7 @@ void main() {
       }
     };
 
-    Map<String, dynamic> actualNote = state.get(NOTE_ID);
+    Map<String, dynamic> actualNote = state.get('111/notes/$NOTE_ID');
     expect(actualNote[PARAGRAPHS], expectedParagraphs);
   });
 
@@ -286,12 +302,15 @@ void main() {
     Map<String, dynamic> note = {'id': NOTE_ID, PARAGRAPHS: paragraphs};
 
     State state = State();
-    state.put(NOTE_ID, note);
+    state.put('111', {
+      'notes': {NOTE_ID: note}
+    });
 
     Map<String, dynamic> payload = {
       CONTENT: 'Some text',
       INSERT_KEY: '777',
-      'noteId': NOTE_ID
+      'noteId': NOTE_ID,
+      'vaultId': '111'
     };
     Event event = Event(EventType.CREATE_PARAGRAPH, '444', payload);
 
@@ -320,7 +339,7 @@ void main() {
       },
     };
 
-    Map<String, dynamic> actualNote = state.get(NOTE_ID);
+    Map<String, dynamic> actualNote = state.get('111/notes/$NOTE_ID');
     expect(actualNote[PARAGRAPHS], expectedParagraphs);
   });
 }

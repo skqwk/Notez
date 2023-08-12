@@ -6,7 +6,8 @@ class UpdateNoteEventHandler implements EventHandler {
   @override
   void handle(Event event, State state) {
     String id = event.payload['id']!;
-    Map<String, dynamic> note = state.get(id);
+    String vaultId = event.payload['vaultId']!;
+    Map<String, dynamic> note = state.get('$vaultId/notes/$id');
     Map<String, dynamic> payload = event.payload;
     // Происходит перезапись уже записанных значений
     note.addAll(payload);

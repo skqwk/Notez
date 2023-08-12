@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:notez/domain/paragraph.dart';
 
 class Note {

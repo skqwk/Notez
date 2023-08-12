@@ -13,11 +13,18 @@ void main() {
   test('Должен перезаписывать значения в заметке на новые', () {
     // GIVEN
     State state = State();
-    Map<String, dynamic> note = {'id': '5678', 'color': 'black', 'title': 'Old note'};
-    state.put('5678', note);
+    Map<String, dynamic> note = {
+      'id': '5678',
+      'color': 'black',
+      'title': 'Old note'
+    };
+    state.put('111', {
+      'notes': {'5678': note}
+    });
 
     Map<String, dynamic> payload = {
       'id': '5678',
+      'vaultId': '111',
       'color': 'white',
       'title': 'New note',
     };
@@ -28,8 +35,13 @@ void main() {
     eventHandler.handle(event, state);
 
     // THEN
-    Map<String, dynamic> expected = {'id': '5678', 'color': 'white', 'title': 'New note'};
+    Map<String, dynamic> expected = {
+      'id': '5678',
+      'color': 'white',
+      'title': 'New note',
+      'vaultId': '111',
+    };
 
-    expect(expected, state.get('5678'));
+    expect(expected, state.get('111/notes/5678'));
   });
 }

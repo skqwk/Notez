@@ -13,7 +13,9 @@ void main() {
   test('Должен создавать заметку', () {
     // GIVEN
     State state = State();
-    Map<String, dynamic> payload = {'id': '4567', 'createdAt': '12'};
+    state.put('6789', {'notes': {}});
+
+    Map<String, dynamic> payload = {'id': '4567', 'createdAt': '12', 'vaultId': '6789'};
 
     Event event = Event(EventType.CREATE_NOTE, '1234', payload);
 
@@ -29,6 +31,6 @@ void main() {
       'paragraphs': [],
     };
 
-    expect(state.get('4567'), expected);
+    expect(state.get('6789/notes/4567'), expected);
   });
 }

@@ -7,6 +7,7 @@ class CreateNoteEventHandler implements EventHandler {
   void handle(Event event, State state) {
     Map<String, dynamic> payload = event.payload;
     String id = payload['id']!;
+    String vaultId = payload['vaultId']!;
     Map<String, dynamic> note = {
       'id': id,
       'deleted': false,
@@ -14,7 +15,7 @@ class CreateNoteEventHandler implements EventHandler {
       'color': '',
       'paragraphs': []
     };
-    state.put(id, note);
+    state.put('$vaultId/notes/$id', note);
   }
 
   @override

@@ -7,7 +7,9 @@ class RemoveParagraphEventHandler extends EventHandler {
   void handle(Event event, State state) {
     Map<String, dynamic> payload = event.payload;
     String deleteKey = payload['deleteKey'];
-    Map<String, dynamic> note = state.get(payload['noteId']);
+    String noteId = payload['noteId']!;
+    String vaultId = payload['vaultId']!;
+    Map<String, dynamic> note = state.get('$vaultId/notes/$noteId');
     Map<String, dynamic>? paragraph = note['paragraphs'][deleteKey];
 
     if (paragraph == null ) {

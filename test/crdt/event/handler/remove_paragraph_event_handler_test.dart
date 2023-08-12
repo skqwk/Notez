@@ -34,16 +34,16 @@ void main() {
     };
 
     State state = State();
-    state.put('1234', note);
+    state.put('111', {'notes': {'1234': note}});
 
-    Map<String, dynamic> payload = {'noteId': '1234', 'deleteKey': '777'};
+    Map<String, dynamic> payload = {'noteId': '1234', 'deleteKey': '777', 'vaultId': '111'};
     Event event = Event(EventType.REMOVE_PARAGRAPH, '888', payload);
 
     // WHEN
     eventHandler.handle(event, state);
 
     // THEN
-    Map<String, dynamic> actualNote = state.get('1234');
+    Map<String, dynamic> actualNote = state.get('111/notes/1234');
 
     Map<String, dynamic> expectedParagraphs = {
       '777': {
@@ -73,16 +73,16 @@ void main() {
         };
 
         State state = State();
-        state.put('1234', note);
+        state.put('111', {'notes': {'1234': note}});
 
-        Map<String, dynamic> payload = {'noteId': '1234', 'deleteKey': '777'};
+        Map<String, dynamic> payload = {'noteId': '1234', 'deleteKey': '777', 'vaultId': '111'};
         Event event = Event(EventType.REMOVE_PARAGRAPH, '999', payload);
 
         // WHEN
         eventHandler.handle(event, state);
 
         // THEN
-        Map<String, dynamic> actualNote = state.get('1234');
+        Map<String, dynamic> actualNote = state.get('111/notes/1234');
 
         Map<String, dynamic> expectedParagraphs = {
           '777': {
@@ -105,9 +105,9 @@ void main() {
         };
 
         State state = State();
-        state.put('1234', note);
+        state.put('111', {'notes': {'1234': note}});
 
-        Map<String, dynamic> payload = {'noteId': '1234', 'deleteKey': '777'};
+        Map<String, dynamic> payload = {'noteId': '1234', 'deleteKey': '777', 'vaultId': '111'};
         Event event = Event(EventType.REMOVE_PARAGRAPH, '888', payload);
 
         // WHEN

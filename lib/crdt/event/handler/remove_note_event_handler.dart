@@ -5,7 +5,9 @@ import 'package:notez/crdt/state.dart';
 class RemoveNoteEventHandler implements EventHandler {
   @override
   void handle(Event event, State state) {
-    Map<String, dynamic> note = state.get(event.payload['id']!);
+    String id = event.payload['id']!;
+    String vaultId = event.payload['vaultId']!;
+    Map<String, dynamic> note = state.get('$vaultId/notes/$id');
     note['deleted'] = true;
   }
 

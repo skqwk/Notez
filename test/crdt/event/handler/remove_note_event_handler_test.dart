@@ -14,9 +14,9 @@ void main() {
     // GIVEN
     State state = State();
     final note = {'id': '4567', 'deleted': false};
-    state.put('4567', note);
+    state.put('123', {'notes': {'4567': note}});
     
-    Map<String, dynamic> payload = {'id': '4567'};
+    Map<String, dynamic> payload = {'id': '4567', 'vaultId': '123'};
     
     Event event = Event(EventType.REMOVE_NOTE, '1234', payload);
     
@@ -24,6 +24,6 @@ void main() {
     eventHandler.handle(event, state);
     
     // THEN
-    expect({'id': '4567', 'deleted': true}, state.get('4567'));
+    expect({'id': '4567', 'deleted': true}, state.get('123/notes/4567'));
   });
 }

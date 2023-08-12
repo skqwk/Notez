@@ -22,7 +22,8 @@ class CreateParagraphEventHandler implements EventHandler {
     };
 
     String noteId = payload['noteId']!;
-    Map<String, dynamic> note = state.get(noteId);
+    String vaultId = payload['vaultId']!;
+    Map<String, dynamic> note = state.get('$vaultId/notes/$noteId');
     Map<dynamic, dynamic> paragraphs = note[PARAGRAPHS];
 
     Map<String, dynamic> previousParagraph;
