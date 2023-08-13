@@ -6,7 +6,7 @@ import 'package:notez/crdt/event/handler/create_paragraph_event_handler.dart';
 import 'package:notez/crdt/event/handler/remove_note_event_handler.dart';
 import 'package:notez/crdt/event/handler/update_note_event_handler.dart';
 import 'package:notez/crdt/event/handler/update_paragraph_event_handler.dart';
-import 'package:notez/crdt/state_factory.dart';
+import 'package:notez/crdt/state/state_factory.dart';
 
 
 void main() {

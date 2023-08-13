@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:notez/crdt/state.dart';
+import 'package:notez/crdt/state/state.dart';
 
 void main() {
   final testState = {

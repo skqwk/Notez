@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:notez/crdt/event/event.dart';
 import 'package:notez/crdt/event/handler/create_note_event_handler.dart';
-import 'package:notez/crdt/state.dart';
+import 'package:notez/crdt/state/state.dart';
 
 void main() {
   CreateNoteEventHandler eventHandler = CreateNoteEventHandler();
@@ -15,7 +15,12 @@ void main() {
     State state = State();
     state.put('6789', {'notes': {}});
 
-    Map<String, dynamic> payload = {'id': '4567', 'createdAt': '12', 'vaultId': '6789'};
+    Map<String, dynamic> payload = {
+      'id': '4567',
+      'createdAt': '12',
+      'vaultId': '6789',
+      'title': 'New note',
+    };
 
     Event event = Event(EventType.CREATE_NOTE, '1234', payload);
 
@@ -27,6 +32,7 @@ void main() {
       'id': '4567',
       'createdAt': '12',
       'deleted': false,
+      'title': 'New note',
       'color': '',
       'paragraphs': [],
     };

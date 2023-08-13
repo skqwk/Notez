@@ -19,8 +19,9 @@ class NoteRepoImpl implements NoteRepo {
     String noteId = GeneratorId.id();
     Note note = Note(
       id: noteId,
-      created: DateTime.now(),
+      createdAt: DateTime.now(),
       paragraphs: paragraphs,
+      title: title,
     );
     notes[noteId] = note;
   }

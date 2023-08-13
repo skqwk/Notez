@@ -1,6 +1,6 @@
 import 'package:notez/crdt/event/event.dart';
 import 'package:notez/crdt/event/event_handler.dart';
-import 'package:notez/crdt/state.dart';
+import 'package:notez/crdt/state/state.dart';
 
 class CreateNoteEventHandler implements EventHandler {
   @override
@@ -12,6 +12,7 @@ class CreateNoteEventHandler implements EventHandler {
       'id': id,
       'deleted': false,
       'createdAt': payload['createdAt'],
+      'title': payload['title'],
       'color': '',
       'paragraphs': []
     };

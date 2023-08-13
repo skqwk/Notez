@@ -1,6 +1,6 @@
 import 'package:notez/crdt/event/event.dart';
 import 'package:notez/crdt/event/event_handler.dart';
-import 'package:notez/crdt/state.dart';
+import 'package:notez/crdt/state/state.dart';
 
 class RemoveNoteEventHandler implements EventHandler {
   @override

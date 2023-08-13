@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:notez/crdt/event/event.dart';
 import 'package:notez/crdt/event/handler/create_paragraph_event_handler.dart';
-import 'package:notez/crdt/state.dart';
+import 'package:notez/crdt/state/state.dart';
 
 const String INSERT_KEY = 'insertKey';
 const String DELETE_KEY = 'deleteKey';

@@ -2,16 +2,16 @@ import 'package:notez/domain/paragraph.dart';
 
 class Note {
   final String id;
-  final DateTime created;
+  final DateTime createdAt;
   final List<Paragraph> paragraphs;
-  bool deleted;
+  final String title;
   String color;
 
   Note({
     required this.id,
-    required this.created,
+    required this.createdAt,
+    required this.title,
     this.paragraphs = const [],
-    this.deleted = false,
     this.color = "",
   });
 }

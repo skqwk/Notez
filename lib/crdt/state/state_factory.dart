@@ -1,8 +1,8 @@
 import 'package:notez/common/log.dart';
-import 'package:notez/crdt/state.dart';
+import 'package:notez/crdt/state/state.dart';
 
-import 'event/event.dart';
-import 'event/event_handler.dart';
+import '../event/event.dart';
+import '../event/event_handler.dart';
 
 /// Фабрика создания состояния
 class StateFactory {
