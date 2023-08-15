@@ -31,10 +31,9 @@ class HybridTimestamp implements Comparable<HybridTimestamp> {
   }
 
   HybridTimestamp addTicks(int ticks) =>
-      HybridTimestamp(_wallClockTime, this._ticks + ticks, _nodeId);
+      HybridTimestamp(_wallClockTime, _ticks + ticks, _nodeId);
 
-  // Гибридные метки времени сравниваются в лексикографичеком порядке, т.е:
-  // [l.e, c.e] < [l.f, c.f] == true <=> (l.e < l.f) OR ((l.e == l.f) AND (c.e < c.f))
+  /// Гибридные метки времени сравниваются в лексикографичеком порядке
   @override
   int compareTo(HybridTimestamp other) {
     if (wallClockTime != other.wallClockTime) {
