@@ -1,6 +1,6 @@
 import 'package:notez/crdt/event/event.dart';
 import 'package:notez/crdt/event/event_handler.dart';
-import 'package:notez/crdt/state.dart';
+import 'package:notez/crdt/state/state.dart';
 
 class UpdateParagraphEventHandler implements EventHandler {
   static const String HAPPEN_AT = 'happenAt';
@@ -8,12 +8,15 @@ class UpdateParagraphEventHandler implements EventHandler {
   static const String DELETE_KEY = 'deleteKey';
   static const String UPDATE_KEY = 'updateKey';
   static const String NOTE_ID = 'noteId';
+  static const String VAULT_ID = 'vaultId';
   static const String PARAGRAPHS = 'paragraphs';
 
   @override
   void handle(Event event, State state) {
     Map<String, dynamic> payload = event.payload;
-    Map<String, dynamic> note = state.get(payload[NOTE_ID]);
+    String noteId = payload[NOTE_ID]!;
+    String vaultId = payload[VAULT_ID]!;
+    Map<String, dynamic> note = state.get('$vaultId/notes/$noteId');
 
     Map<String, dynamic> paragraph = note[PARAGRAPHS][payload[UPDATE_KEY]];
     if (paragraph[CONTENT] == null) {

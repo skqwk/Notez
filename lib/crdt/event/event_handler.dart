@@ -1,4 +1,4 @@
-import '../state.dart';
+import '../state/state.dart';
 import 'event.dart';
 
 abstract class EventHandler {

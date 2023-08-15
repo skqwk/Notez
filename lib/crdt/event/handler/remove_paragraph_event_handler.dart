@@ -1,13 +1,15 @@
 import 'package:notez/crdt/event/event.dart';
 import 'package:notez/crdt/event/event_handler.dart';
-import 'package:notez/crdt/state.dart';
+import 'package:notez/crdt/state/state.dart';
 
 class RemoveParagraphEventHandler extends EventHandler {
   @override
   void handle(Event event, State state) {
     Map<String, dynamic> payload = event.payload;
     String deleteKey = payload['deleteKey'];
-    Map<String, dynamic> note = state.get(payload['noteId']);
+    String noteId = payload['noteId']!;
+    String vaultId = payload['vaultId']!;
+    Map<String, dynamic> note = state.get('$vaultId/notes/$noteId');
     Map<String, dynamic>? paragraph = note['paragraphs'][deleteKey];
 
     if (paragraph == null ) {

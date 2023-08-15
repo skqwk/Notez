@@ -1,15 +1,27 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:notez/crdt/event/event.dart';
 import 'package:notez/crdt/event/handler/create_note_event_handler.dart';
-import 'package:notez/crdt/state.dart';
+import 'package:notez/crdt/state/state.dart';
 
 void main() {
+  CreateNoteEventHandler eventHandler = CreateNoteEventHandler();
+
+  test('Обрабатывает соответствующее событие', () {
+    expect(eventHandler.type, EventType.CREATE_NOTE);
+  });
+
   test('Должен создавать заметку', () {
     // GIVEN
     State state = State();
-    Map<String, dynamic> payload = {'id': '4567', 'createdAt': '12'};
+    state.put('6789', {'notes': {}});
 
-    CreateNoteEventHandler eventHandler = CreateNoteEventHandler();
+    Map<String, dynamic> payload = {
+      'id': '4567',
+      'createdAt': '12',
+      'vaultId': '6789',
+      'title': 'New note',
+    };
+
     Event event = Event(EventType.CREATE_NOTE, '1234', payload);
 
     // WHEN
@@ -20,10 +32,11 @@ void main() {
       'id': '4567',
       'createdAt': '12',
       'deleted': false,
+      'title': 'New note',
       'color': '',
       'paragraphs': [],
     };
 
-    expect(state.get('4567'), expected);
+    expect(state.get('6789/notes/4567'), expected);
   });
 }

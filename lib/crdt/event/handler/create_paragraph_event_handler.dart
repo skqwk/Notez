@@ -1,6 +1,6 @@
 import 'package:notez/crdt/event/event.dart';
 import 'package:notez/crdt/event/event_handler.dart';
-import 'package:notez/crdt/state.dart';
+import 'package:notez/crdt/state/state.dart';
 
 class CreateParagraphEventHandler implements EventHandler {
   static const String INSERT_KEY = 'insertKey';
@@ -22,7 +22,8 @@ class CreateParagraphEventHandler implements EventHandler {
     };
 
     String noteId = payload['noteId']!;
-    Map<String, dynamic> note = state.get(noteId);
+    String vaultId = payload['vaultId']!;
+    Map<String, dynamic> note = state.get('$vaultId/notes/$noteId');
     Map<dynamic, dynamic> paragraphs = note[PARAGRAPHS];
 
     Map<String, dynamic> previousParagraph;
