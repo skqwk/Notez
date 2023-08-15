@@ -22,7 +22,8 @@ class VaultStateConverter extends StateConverter<Vault> {
     String name = state['name'];
     Vault vault = Vault(id, name);
 
-    Map<String, Map<String, dynamic>> notes = state['notes'];
+
+    Map<String, Map<String, dynamic>> notes = Map.castFrom(state['notes']);
     List<Note> convertedNotes =
         notes.values.map(noteConverter.convert).nonNulls.toList();
 
@@ -71,7 +72,7 @@ class ParagraphListStateConverter extends StateConverter<List<Paragraph>> {
   @override
   List<Paragraph> convert(Map<String, dynamic> state) {
     String? head = state['head'];
-    if (head == null ) {
+    if (head == null) {
       return [];
     }
 
@@ -80,7 +81,7 @@ class ParagraphListStateConverter extends StateConverter<List<Paragraph>> {
     Map<String, dynamic>? nowParagraph = paragraphs[head];
 
     List<Paragraph> convertedParagraphs = [];
-    while(nowParagraph != null) {
+    while (nowParagraph != null) {
       if (nowParagraph['content'] != null) {
         Paragraph converted = paragraphStateConverter.convert(nowParagraph)!;
         convertedParagraphs.add(converted);
