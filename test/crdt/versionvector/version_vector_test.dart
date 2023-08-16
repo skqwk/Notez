@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:notez/crdt/hlc/hybrid_timestamp.dart';
-import 'package:notez/crdt/hlc/version_vector.dart';
+import 'package:notez/crdt/versionvector/version_vector.dart';
 
 void main() {
   group('''Вектор версий должен расчитывать разницу (diff)
