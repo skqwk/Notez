@@ -6,7 +6,7 @@ import 'package:notez/crdt/versionvector/version_vector.dart';
 import 'package:notez/crdt/versionvector/version_vector_repo.dart';
 
 abstract class SyncService {
-  void sync();
+  Future<bool> sync();
 }
 
 class SyncServiceImpl implements SyncService {
@@ -21,13 +21,13 @@ class SyncServiceImpl implements SyncService {
   );
 
   @override
-  void sync() {
+  Future<bool> sync() async {
     VersionVector local = versionVectorRepo.getVersionVector();
-    RemoteState? remoteState = remoteNode.getRemoteState(local);
+    RemoteState? remoteState = await remoteNode.getRemoteState(local);
 
     if (remoteState == null) {
       log.info("Состояние удаленного узла - null");
-      return;
+      return false;
     }
 
     VersionVector remote = remoteState.remoteVector;
@@ -41,6 +41,8 @@ class SyncServiceImpl implements SyncService {
 
     VersionVector merge = local.merge(remote);
     versionVectorRepo.saveVersionVector(merge);
+
+    return true;
   }
 
   List<Event> _getMissingLocalEvents(VersionVector diff) {

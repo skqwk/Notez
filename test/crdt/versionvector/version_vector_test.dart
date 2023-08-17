@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:notez/crdt/hlc/hybrid_timestamp.dart';
 import 'package:notez/crdt/versionvector/version_vector.dart';
+
+import '../../fixture/fixture_reader.dart';
 
 void main() {
   group('''Вектор версий должен расчитывать разницу (diff)
@@ -145,5 +149,16 @@ void main() {
       expect(merge.stamps[node1].toString(), remoteTime1);
       expect(merge.stamps[node2].toString(), localTime2);
     });
+  });
+
+  test('Должен корректно преобразовываться из списка json', () {
+    // GIVEN | WHEN
+    VersionVector result =  VersionVector.fromJson(jsonDecode(fixture('version_vector.json')));
+
+    // THEN
+    expect(result.stamps.length, 3);
+    expect(result.stamps.keys.contains('node1'), isTrue);
+    expect(result.stamps.keys.contains('node2'), isTrue);
+    expect(result.stamps.keys.contains('node3'), isTrue);
   });
 }

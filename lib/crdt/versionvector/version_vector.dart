@@ -65,4 +65,9 @@ class VersionVector {
 
     return VersionVector(convertedStamps);
   }
+
+  factory VersionVector.fromJson(List<dynamic> json) {
+    List<String> stamps =  List.castFrom(json);
+    return VersionVector(stamps.map(HybridTimestamp.parse).toList());
+  }
 }
