@@ -96,7 +96,7 @@ void main() {
       await remoteNode.sendLocalEvents(events);
     });
 
-    test('в случае исключения должен залогировать исключение и завершиться', () async {
+    test('в случае исключения должен залогировать исключение и перебросить его', () async {
       // GIVEN
       String rawEvents = fixture('events.json');
       List<Map<String, dynamic>> jsonEvents = List.castFrom(jsonDecode(rawEvents));
@@ -106,8 +106,28 @@ void main() {
           headers: HEADERS, body: jsonEncode(events)))
           .thenThrow(Exception("Возникла ошибка"));
 
-      // WHEN | THEN
-      await remoteNode.sendLocalEvents(events);
+      // WHEN
+      final call = remoteNode.sendLocalEvents;
+      
+      // THEN
+      await expectLater(call(events), throwsA(isA<RemoteNodeException>()));
+    });
+
+    test('в случае неуспешного ответа должен залогировать его и выбросить исключение', () async {
+      // GIVEN
+      String rawEvents = fixture('events.json');
+      List<Map<String, dynamic>> jsonEvents = List.castFrom(jsonDecode(rawEvents));
+      List<Event> events = jsonEvents.map(Event.fromJson).toList();
+
+      when(() => mockHttpClient.post(Uri.http(SHARE),
+          headers: HEADERS, body: jsonEncode(events)))
+          .thenAnswer((_) async => Response("", 400));
+
+      // WHEN
+      final call = remoteNode.sendLocalEvents;
+
+      // THEN
+      await expectLater(call(events), throwsA(isA<RemoteNodeException>()));
     });
   });
 }

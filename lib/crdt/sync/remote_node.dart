@@ -60,11 +60,8 @@ class HttpRemoteNode implements RemoteNode {
   @override
   Future<RemoteState?> getRemoteState(VersionVector local) async {
     try {
-      Response response = await httpClient.post(
-        Uri.http(config.syncUrl),
-        headers: HEADERS,
-        body: local.toJson()
-      );
+      Response response = await httpClient.post(Uri.http(config.syncUrl),
+          headers: HEADERS, body: local.toJson());
 
       if (response.statusCode == SUCCESS) {
         log.info("Получен ответ от удаленного узла: ${response.body}");
@@ -80,16 +77,23 @@ class HttpRemoteNode implements RemoteNode {
   @override
   Future<void> sendLocalEvents(List<Event> missingEvents) async {
     try {
-      Response response = await httpClient.post(
-        Uri.http(config.shareUrl),
-        headers: HEADERS,
-        body: jsonEncode(missingEvents)
-      );
+      Response response = await httpClient.post(Uri.http(config.shareUrl),
+          headers: HEADERS, body: jsonEncode(missingEvents));
       if (response.statusCode == SUCCESS) {
         log.info("События успешно отправлены");
+      } else {
+        throw RemoteNodeException(
+            "Ошибка при отправке событий. Код ответа - ${response.statusCode}");
       }
     } on Exception catch (e) {
       log.error("Ошибка при отправке событий: $e");
+      throw RemoteNodeException("Ошибка при отправке событий. Исключение - $e");
     }
   }
+}
+
+class RemoteNodeException implements Exception {
+  String? message;
+
+  RemoteNodeException([this.message]);
 }

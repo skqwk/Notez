@@ -10,6 +10,8 @@ abstract class SyncService {
 }
 
 class SyncServiceImpl implements SyncService {
+  static const int MAX_NUMBER_ATTEMPTS = 5;
+
   final VersionVectorRepo versionVectorRepo;
   final EventRepo eventRepo;
   final RemoteNode remoteNode;
@@ -34,7 +36,11 @@ class SyncServiceImpl implements SyncService {
     VersionVector diff = local.diff(remote);
 
     List<Event> missingEvents =  _getMissingLocalEvents(diff);
-    await remoteNode.sendLocalEvents(missingEvents);
+
+    bool sendSuccessful = await _sendLocalEvents(missingEvents);
+    if (!sendSuccessful) {
+      return false;
+    }
 
     List<Event> remoteEvents = remoteState.missingEvents;
     eventRepo.saveEvents(remoteEvents);
@@ -43,6 +49,20 @@ class SyncServiceImpl implements SyncService {
     versionVectorRepo.saveVersionVector(merge);
 
     return true;
+  }
+
+  Future<bool> _sendLocalEvents(List<Event> events) async {
+    int attempt = 0;
+    while (attempt < MAX_NUMBER_ATTEMPTS) {
+      try {
+        await remoteNode.sendLocalEvents(events);
+        return true;
+      } on Exception catch (e) {
+        log.error('Ошибка [$e]. При попытке $attempt отправить локальные события');
+        attempt++;
+      }
+    }
+    return false;
   }
 
   List<Event> _getMissingLocalEvents(VersionVector diff) {
