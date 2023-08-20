@@ -70,4 +70,8 @@ class HybridTimestamp implements Comparable<HybridTimestamp> {
   bool happenedBefore(HybridTimestamp other) {
     return compareTo(other) < 0;
   }
+
+  bool happenedAfter(HybridTimestamp other) {
+    return compareTo(other) > 0;
+  }
 }
