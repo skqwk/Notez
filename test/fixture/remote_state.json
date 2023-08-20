@@ -1,0 +1,13 @@
+{
+  "versionVector": [
+    "2023-04-25T10:10:07.914Z-0002-node1",
+    "2023-04-25T10:10:07.914Z-0002-node2",
+    "2023-04-25T10:10:07.914Z-0002-node3"
+  ],
+  "events": [
+    {"payload": {"id": 123, "insertKey": 456}, "happenAt": "1234", "type": "UPDATE_NOTE"},
+    {"payload": {"id": 123, "insertKey": 456}, "happenAt": "1234", "type": "REMOVE_NOTE"},
+    {"payload": {"id": 123, "insertKey": 456}, "happenAt": "1234", "type": "CREATE_NOTE"},
+    {"payload": {"id": 123, "insertKey": 456}, "happenAt": "1234", "type": "REMOVE_VAULT"}
+  ]
+}

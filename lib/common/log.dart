@@ -14,11 +14,16 @@ class log {
     Logger.root.onRecord.listen((record) {
       print('${record.level.name}: ${record.time}: ${record.message}');
     });
+
     return logger!;
   }
 
   static info(String message) {
     _getOrCreate().info(message);
+  }
+
+  static error(String message) {
+    _getOrCreate().warning(message);
   }
 }
 
