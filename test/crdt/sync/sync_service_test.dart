@@ -47,6 +47,8 @@ void main() {
         .thenAnswer((_) async => remoteState);
 
     List<Event> missingEvents = [Event(EventType.REMOVE_VAULT, "", {})];
+    when(() => remoteNode.sendLocalEvents(missingEvents))
+        .thenAnswer((_) async => ());
 
     when(() => eventRepo.getEventsHappenAfter(any())).thenReturn(missingEvents);
 

@@ -34,7 +34,7 @@ class SyncServiceImpl implements SyncService {
     VersionVector diff = local.diff(remote);
 
     List<Event> missingEvents =  _getMissingLocalEvents(diff);
-    remoteNode.sendLocalEvents(missingEvents);
+    await remoteNode.sendLocalEvents(missingEvents);
 
     List<Event> remoteEvents = remoteState.missingEvents;
     eventRepo.saveEvents(remoteEvents);
