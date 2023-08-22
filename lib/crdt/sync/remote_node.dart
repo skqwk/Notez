@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart';
 import 'package:notez/common/config.dart';
+import 'package:notez/common/exception.dart';
 import 'package:notez/common/log.dart';
 import 'package:notez/crdt/event/event.dart';
 import 'package:notez/crdt/versionvector/version_vector.dart';
@@ -92,8 +93,4 @@ class HttpRemoteNode implements RemoteNode {
   }
 }
 
-class RemoteNodeException implements Exception {
-  String? message;
 
-  RemoteNodeException([this.message]);
-}

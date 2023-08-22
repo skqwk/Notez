@@ -4,6 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:notez/common/config.dart';
+import 'package:notez/common/exception.dart';
 import 'package:notez/crdt/event/event.dart';
 import 'package:notez/crdt/hlc/hybrid_timestamp.dart';
 import 'package:notez/crdt/sync/remote_node.dart';
