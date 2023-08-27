@@ -56,9 +56,10 @@ class NoteStateConverter extends StateConverter<Note> {
       id: id,
       createdAt: created,
       title: title,
-      paragraphs: paragraphs,
       color: color,
     );
+
+    note.paragraphs.addAll(paragraphs);
 
     return note;
   }

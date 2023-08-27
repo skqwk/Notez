@@ -20,9 +20,10 @@ class NoteRepoImpl implements NoteRepo {
     Note note = Note(
       id: noteId,
       createdAt: DateTime.now(),
-      paragraphs: paragraphs,
       title: title,
     );
+
+    note.paragraphs.addAll(paragraphs);
     notes[noteId] = note;
   }
 

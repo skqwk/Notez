@@ -14,3 +14,5 @@ class CreateProfileEvent extends ProfileEvent {
 
   CreateProfileEvent(this.username);
 }
+
+class LogoutProfileEvent extends ProfileEvent {}

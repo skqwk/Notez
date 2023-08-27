@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:notez/common/log.dart';
 import 'package:notez/domain/profile.dart';
 import 'package:notez/usecase/create_profile.dart';
 import 'package:notez/usecase/login_profile.dart';
@@ -21,7 +22,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       emit(LoadingProfile());
       Profile? profile = await loginProfileUseCase.call(event.username);
       if (profile == null) {
-        emit(ProfileNotFound());
+        emit(ProfileError("Профиль не найден"));
       } else {
         emit(LoadedProfile(profile));
       }
@@ -29,8 +30,14 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
     on<CreateProfileEvent>((event, emit) async {
       emit(LoadingProfile());
-      Profile profile = await createProfileUseCase.call(event.username);
-      emit(LoadedProfile(profile));
+      await createProfileUseCase.call(event.username)
+        .then((profile) => emit(LoadedProfile(profile)))
+        .onError((error, stackTrace) => emit(ProfileError("Имя пользователя занято")));
+    });
+
+    on<LogoutProfileEvent>((event, emit) async {
+      log.info('Выход из профиля');
+      emit(ProfileInitial());
     });
   }
 }

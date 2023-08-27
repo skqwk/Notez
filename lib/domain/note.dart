@@ -3,7 +3,7 @@ import 'package:notez/domain/paragraph.dart';
 class Note {
   final String id;
   final DateTime createdAt;
-  final List<Paragraph> paragraphs;
+  final List<Paragraph> paragraphs = [];
   final String title;
   String color;
 
@@ -11,7 +11,6 @@ class Note {
     required this.id,
     required this.createdAt,
     required this.title,
-    this.paragraphs = const [],
     this.color = "",
   });
 }

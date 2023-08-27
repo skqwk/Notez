@@ -7,7 +7,11 @@ class ProfileInitial extends ProfileState {}
 
 class LoadingProfile extends ProfileState {}
 
-class ProfileNotFound extends ProfileState {}
+class ProfileError extends ProfileState {
+  final String message;
+
+  ProfileError(this.message);
+}
 
 class LoadedProfile extends ProfileState {
   final Profile profile;
